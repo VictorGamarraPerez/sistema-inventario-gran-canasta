@@ -1,52 +1,170 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Inventario Gran Canasta
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema de gestión de inventario desarrollado con Laravel 11 para control de productos, entradas, salidas y reportes.
 
-## About Laravel
+## 📋 Características
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Gestión de Productos**: CRUD completo de productos con categorías
+- **Proveedores**: Administración de proveedores
+- **Entradas y Salidas**: Control de movimientos de inventario
+- **Reportes**: Generación de reportes en PDF y Excel
+- **Autenticación**: Sistema de login con verificación por código de email
+- **Roles de Usuario**: Sistema de permisos (Administrador, Gerente, Empleado)
+- **Panel de Control**: Dashboard con estadísticas en tiempo real
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Tecnologías Utilizadas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Framework**: Laravel 11
+- **Base de Datos**: MySQL
+- **Frontend**: Blade Templates, TailwindCSS, Alpine.js
+- **Librerías**:
+  - DomPDF para generación de PDFs
+  - Maatwebsite/Excel para exportación de datos
+  - Chart.js para gráficos
 
-## Learning Laravel
+## 📦 Requisitos del Sistema
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- PHP >= 8.2
+- Composer
+- MySQL >= 5.7
+- Node.js >= 18
+- NPM >= 9
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Instalación
 
-## Laravel Sponsors
+### 1. Clonar el repositorio
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone https://github.com/victorgp2098/sistema-inventario-gran-canasta.git
+cd sistema-inventario-gran-canasta
+```
 
-### Premium Partners
+### 2. Instalar dependencias de PHP
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+composer install
+```
 
-## Contributing
+### 3. Instalar dependencias de Node.js
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+npm install
+```
 
-## Code of Conduct
+### 4. Configurar variables de entorno
+
+```bash
+cp .env.example .env
+```
+
+Edita el archivo `.env` y configura tu base de datos:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=inventario_gran_canasta
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+```
+
+### 5. Generar clave de aplicación
+
+```bash
+php artisan key:generate
+```
+
+### 6. Ejecutar migraciones
+
+```bash
+php artisan migrate
+```
+
+### 7. Compilar assets
+
+```bash
+npm run build
+```
+
+O para desarrollo:
+
+```bash
+npm run dev
+```
+
+### 8. Iniciar servidor
+
+```bash
+php artisan serve
+```
+
+La aplicación estará disponible en `http://localhost:8000`
+
+## 🔧 Configuración Adicional
+
+### Configurar Email (Opcional)
+
+Para habilitar el envío de códigos de verificación por email, configura en `.env`:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=tu_email@gmail.com
+MAIL_PASSWORD=tu_contraseña_app
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=tu_email@gmail.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+### Crear Usuario Administrador
+
+Puedes crear un usuario desde la base de datos o usando tinker:
+
+```bash
+php artisan tinker
+```
+
+```php
+User::create([
+    'name' => 'Administrador',
+    'email' => 'admin@grancanasta.com',
+    'password' => bcrypt('password'),
+    'role' => 'admin',
+    'active' => true
+]);
+```
+
+## 👥 Roles y Permisos
+
+- **Administrador**: Acceso total al sistema
+- **Gerente**: Acceso a productos, entradas, salidas y reportes
+- **Empleado**: Acceso limitado a consultas
+
+## 📝 Uso
+
+1. Accede a `http://localhost:8000/login`
+2. Ingresa con tu email y contraseña
+3. Verifica el código que recibirás por email (si está configurado)
+4. Comienza a gestionar tu inventario
+
+## 🤝 Contribución
+
+Las contribuciones son bienvenidas. Por favor, abre un issue primero para discutir qué te gustaría cambiar.
+
+## 📄 Licencia
+
+Este proyecto es privado y está bajo los derechos de autor de Gran Canasta.
+
+## 👨‍💻 Autor
+
+**Víctor Gamarra Pérez**
+- Email: victorgp2098@gmail.com
+- GitHub: [@victorgp2098](https://github.com/victorgp2098)
+
+---
+
+Desarrollado con ❤️ para Gran Canasta
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
